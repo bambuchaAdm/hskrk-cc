@@ -1,0 +1,34 @@
+@import pl.hskrk.cc.machines.Machine
+@(machine: Machine)
+@layout {
+    <h1>@machine.name</h1>
+
+    <div class="details">
+        <h2>Dane</h2>
+        <section class="details-entry">
+            <span class="key">Data nabycia</span>
+            <span class="value">1 kwienia 1970</span>
+        </section>
+        <section class="details-entry">
+            <span class="key">Ostatnie prace konserwacyjne</span>
+            <span class="value"><a>1 kwienia 1970</a></span> wykonane przez
+            <span class="value"><a>Temporal</a></span>
+        </section>
+    </div>
+    <div class="issues">
+        <h2>Zgłoszenia</h2>
+        <ul>
+            @for(i <- Range(1,10)){
+                <li>Zgłoszenie @i</li>
+            }
+        </ul>
+    </div>
+    <div class="maintenance">
+        <h2>Konserwacje</h2>
+        <ul>
+            @for(i <- Range(1,10)){
+                <li>Konserwacja @i wykonania przez Temporal</li>
+            }
+        </ul>
+    </div>
+}
