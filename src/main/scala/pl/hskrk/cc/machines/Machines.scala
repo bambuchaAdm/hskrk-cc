@@ -36,6 +36,9 @@ class Machines(system: ActorSystem) extends TwirlSupport {
 
   val routes = {
     pathPrefix("machines"){
+      path("new") {
+        complete { html.newMachine() }
+      } ~
       get { context =>
         machineManager.ask(SendAllMachines).mapTo[List[Machine]].flatMap { machines =>
           context.complete(html.machinesList(machines))
@@ -49,9 +52,6 @@ class Machines(system: ActorSystem) extends TwirlSupport {
           }
         }
       }
-    } ~
-    path("machines" / "new") {
-      complete { html.newMachine() }
     } ~
     path("machine" / IntNumber).as(MachineId.apply _) { id =>
       get { context =>
