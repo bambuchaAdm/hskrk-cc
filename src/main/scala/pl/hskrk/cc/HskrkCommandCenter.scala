@@ -3,6 +3,7 @@ package pl.hskrk.cc
 import akka.actor.ActorSystem
 import akka.http.scaladsl.server.Directives._
 import pl.hskrk.cc.assets.Assets
+import pl.hskrk.cc.issues.Issues
 import pl.hskrk.cc.machines.Machines
 
 /**
@@ -12,6 +13,8 @@ class HskrkCommandCenter(system: ActorSystem) extends TwirlSupport {
 
   val machines = new Machines(system)
 
+  val issues = new Issues(system)
+
   val route = logRequestResult("ALL"){
     pathSingleSlash {
       get {
@@ -19,31 +22,8 @@ class HskrkCommandCenter(system: ActorSystem) extends TwirlSupport {
       }
     } ~
     machines.routes ~
-    path("issues") {
-      get {
-        ???
-      } ~
-      post {
-        ???
-      }
-    } ~
-    path("issue" ~ IntNumber){ id =>
-      path("comments") {
-        post {
-          ???
-        }
-      } ~
-      get {
-        ???
-      } ~
-      put {
-        ???
-      } ~
-      delete {
-        ???
-      }
-    } ~ { Assets.routes  } ~
-    complete(html.page404())
+    issues.routes ~
+    Assets.routes
 
   }
 }

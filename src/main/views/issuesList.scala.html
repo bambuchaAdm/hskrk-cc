@@ -1,0 +1,14 @@
+@import pl.hskrk.cc.issues.Issues
+@import pl.hskrk.cc.issues.Issue
+
+@(issues: List[Issue])
+@layout {
+    <h1>Zgłoszenia</h1>
+    <a href="@Issues.newIssuePath"><button class="pure-button" type="button">Nowe zgłoszenie</button></a>
+    <ul>
+    @for(issue <- issues){
+        <li><a href="@Issues.pathFor(issue)"> #@issue.id.get - @issue.title</a></li>
+    }
+    </ul>
+
+}

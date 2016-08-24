@@ -1,0 +1,16 @@
+@import java.time.LocalDate
+@(optionalError: Option[String] = None)
+@layout {
+
+    @for(error <- optionalError){
+        <div class="error"><span>@error</span></div>
+    }
+    <h1>Nowa maszyna</h1>
+    <form action="/machines" method="post" class="pure-form pure-form-stacked">
+        <label for="name">Nazwa</label> <input id="name" name="name" type="text">
+        <label for="purchase-day">Data pozyskania</label><input id="purchase-day" name="purchase-date" type="date" placeholder="@LocalDate.now()">
+        <br>
+        <input class="pure-button pure-button-primary" type="submit" value="OK">
+    </form>
+
+}

@@ -1,0 +1,14 @@
+@import pl.hskrk.cc.issues.Issues
+@(optionalError: Option[String] = None)
+@layout {
+    @for(error <- optionalError){
+        <div class="error"><span>@error</span></div>
+    }
+    <h1>Nowe zgłoszenie</h1>
+    <form action="@Issues.listPath" method="post" class="pure-form pure-form-stacked" id="new-issue">
+        <input class="summary" id="summary" name="summary" type="text" placeholder="Temat">
+        <textarea class="description" id="description" name="description" rows="10" placeholder="Opis"></textarea>
+
+        <input class="pure-button pure-button-primary" type="submit" value="OK">
+    </form>
+}

@@ -1,0 +1,30 @@
+@import pl.hskrk.cc.issues.Issues
+@import pl.hskrk.cc.issues.Issue
+@import java.time.format.DateTimeFormatter; val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd kk:mm")
+@(issue: Issue)
+
+
+@layout {
+    <h1>@issue.title - #@issue.id.get</h1>
+    <div class="issue-details details">
+        <section class="details-entry">
+            Stworzony przez @issue.author.login
+        </section>
+        <p class="description">@issue.description</p>
+    </div>
+    <div class="comments">
+        <h2>Komentarze</h2>
+        <form class="pure-form new-comment-form" method="post" action="@Issues.newCommentPathFor(issue)">
+            <textarea class="new-comment" placeholder="Skomentuj" name="content"></textarea>
+            <button type="submit">Wyślij</button>
+        </form>
+        @for(comment <- issue.comments){
+        <section class="comment">
+            <span class="meta">@formatter.format(comment.createdAt) przez @comment.author.login</span>
+            <p>@comment.content</p>
+        </section>
+        }
+
+    </div>
+
+}
