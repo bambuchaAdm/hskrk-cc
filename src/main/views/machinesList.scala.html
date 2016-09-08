@@ -2,7 +2,7 @@
 @(machines: List[Machine])
 @layout {
     <h1>Lista maszyn</h1>
-    <a href="/machines/new"><button type="button" class="pure-button" >Nowa maszyna</button></a>
+    <a href="/machines/new" class="pure-button">Nowa maszyna</a>
     <ul>
         @for(machine <- machines){
             <li><a href="/machine/@machine.id.get">@machine.name</a></li>
