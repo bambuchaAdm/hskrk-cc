@@ -14,7 +14,7 @@ class UserManager extends Actor {
   val users = List(
     User(UserId(1), "Temporal"),
     User(UserId(2), "Bambucha"),
-    User(UserId(3), "Example")
+    User(UserId(3), "Przykładowy użytkownik")
   )
 
   override def receive: Receive = {
