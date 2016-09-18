@@ -1,5 +1,7 @@
 package pl.hskrk.cc
 
+import java.util.concurrent.CountDownLatch
+
 import akka.actor.ActorSystem
 import akka.event.Logging
 import akka.http.scaladsl.Http
@@ -9,6 +11,7 @@ import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.{MalformedFormFieldRejection, RejectionHandler}
 import akka.stream.ActorMaterializer
 
+import scala.concurrent.{Future, Promise}
 import scala.io.StdIn
 
 class Server(implicit val system: ActorSystem) extends TwirlSupport  { // Remove support later
@@ -33,10 +36,12 @@ class Server(implicit val system: ActorSystem) extends TwirlSupport  { // Remove
       }).result()
   }
 
+  val counter = new CountDownLatch(1)
+
   def handleSync() : Unit = {
     logger.info("Starting server at port={}", port)
     val future = http.bindAndHandle(routes.route, "localhost", port)
-    StdIn.readLine() // Move away somewhere else
+    counter.await()
     future.flatMap(_.unbind()).onComplete( _ => system.terminate())
   }
 }
