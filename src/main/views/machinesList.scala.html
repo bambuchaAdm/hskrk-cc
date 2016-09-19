@@ -1,5 +1,5 @@
 @import pl.hskrk.cc.machines.Machine
-@(machines: List[Machine])
+@(machines: List[Machine])(implicit assets: Assets)
 @layout {
     <h1>Lista maszyn</h1>
     <a href="/machines/new" class="pure-button">Nowa maszyna</a>

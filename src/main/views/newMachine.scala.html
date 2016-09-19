@@ -1,5 +1,5 @@
 @import java.time.LocalDate
-@(optionalError: Option[String] = None)
+@(optionalError: Option[String] = None)(implicit assets: Assets)
 @layout {
 
     @for(error <- optionalError){

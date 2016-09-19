@@ -1,7 +1,10 @@
 package pl.hskrk.cc
 
+import java.io.File
+
 import akka.actor.ActorSystem
 import akka.http.scaladsl.server.Directives._
+import com.typesafe.config.ConfigFactory
 import pl.hskrk.cc.assets.Assets
 import pl.hskrk.cc.issues.Issues
 import pl.hskrk.cc.machines.Machines
@@ -11,19 +14,24 @@ import pl.hskrk.cc.machines.Machines
   */
 class HskrkCommandCenter(system: ActorSystem) extends TwirlSupport {
 
-  val machines = new Machines(system)
+  val config = ConfigFactory.load().getConfig("hscc")
 
-  val issues = new Issues(system)
+  implicit val assets = new Assets(config.getString("assets.path"))
+
+  val machines = new Machines(system, assets)
+
+  val issues = new Issues(system, assets)
+
 
   val route = logRequestResult("ALL"){
     pathSingleSlash {
       get {
-        complete(html.index())
+        complete(html.index(assets))
       }
     } ~
     machines.routes ~
     issues.routes ~
-    Assets.routes
+    assets.routes
 
   }
 }

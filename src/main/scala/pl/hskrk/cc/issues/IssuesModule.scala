@@ -6,11 +6,12 @@ import akka.http.scaladsl.server.Directives._
 import akka.util.Timeout
 import pl.hskrk.cc.TwirlSupport
 import akka.http.scaladsl.model.StatusCodes.SeeOther
+import pl.hskrk.cc.assets.Assets
 import pl.hskrk.cc.users.UserManager
 
 import scala.concurrent.duration._
 
-class Issues(val system: ActorSystem) extends TwirlSupport {
+class Issues(val system: ActorSystem, implicit val assets: Assets) extends TwirlSupport {
 
   implicit val dispatcher = system.dispatcher
 

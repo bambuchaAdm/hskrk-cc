@@ -10,10 +10,11 @@ import akka.util.Timeout
 import pl.hskrk.cc.TwirlSupport
 import akka.http.scaladsl.model.StatusCodes.SeeOther
 import akka.http.scaladsl.server.{MalformedFormFieldRejection, RejectionHandler}
+import pl.hskrk.cc.assets.Assets
 
 import scala.concurrent.duration._
 
-class Machines(system: ActorSystem) extends TwirlSupport {
+class Machines(system: ActorSystem, implicit val assets: Assets) extends TwirlSupport {
 
   implicit val timeout: Timeout = 5.seconds
 

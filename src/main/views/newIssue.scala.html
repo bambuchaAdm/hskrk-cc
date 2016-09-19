@@ -1,5 +1,5 @@
 @import pl.hskrk.cc.issues.Issues
-@(optionalError: Option[String] = None)
+@(optionalError: Option[String] = None)(implicit assets: Assets)
 @layout {
     @for(error <- optionalError){
         <div class="error"><span>@error</span></div>

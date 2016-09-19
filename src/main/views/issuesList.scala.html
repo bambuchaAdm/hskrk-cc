@@ -1,7 +1,7 @@
 @import pl.hskrk.cc.issues.Issues
 @import pl.hskrk.cc.issues.Issue
 
-@(issues: List[Issue])
+@(issues: List[Issue])(implicit assets: Assets)
 @layout {
     <h1>Zgłoszenia</h1>
     <a href="@Issues.newIssuePath" class="pure-button">Nowe zgłoszenie</a>

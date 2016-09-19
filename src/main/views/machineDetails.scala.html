@@ -1,5 +1,5 @@
 @import pl.hskrk.cc.machines.Machine
-@(machine: Machine)
+@(machine: Machine)(implicit assets: Assets)
 @layout {
     <h1>@machine.name</h1>
     <div class="details">

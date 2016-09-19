@@ -1,7 +1,7 @@
 @import pl.hskrk.cc.issues.Issues
 @import pl.hskrk.cc.issues.Issue
 @import java.time.format.DateTimeFormatter; val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd kk:mm")
-@(issue: Issue)
+@(issue: Issue)(implicit assets: Assets)
 
 
 @layout {

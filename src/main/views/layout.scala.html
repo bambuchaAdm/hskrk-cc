@@ -1,5 +1,4 @@
-@(content: Html)
-@import pl.hskrk.cc.assets.Assets
+@(content: Html)(implicit assets: Assets)
 <!doctype html>
 <html class="no-js" lang="">
     <head>
@@ -9,15 +8,15 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="stylesheet" href="@Assets.css("normalize.css")">
-        <link rel="stylesheet" href="@Assets.css("base.css")">
-        <link rel="stylesheet" href="@Assets.css("menus-core.css")">
-        <link rel="stylesheet" href="@Assets.css("menus-horizontal.css")">
-        <link rel="stylesheet" href="@Assets.css("tables.css")">
-        <link rel="stylesheet" href="@Assets.css("main.css")">
-        <link rel="stylesheet" href="@Assets.css("grids-core.css")">
-        <link rel="stylesheet" href="@Assets.css("buttons.css")">
-        <link rel="stylesheet" href="@Assets.css("forms.css")">
+        <link rel="stylesheet" href="@assets.css("normalize.css")">
+        <link rel="stylesheet" href="@assets.css("base.css")">
+        <link rel="stylesheet" href="@assets.css("menus-core.css")">
+        <link rel="stylesheet" href="@assets.css("menus-horizontal.css")">
+        <link rel="stylesheet" href="@assets.css("tables.css")">
+        <link rel="stylesheet" href="@assets.css("main.css")">
+        <link rel="stylesheet" href="@assets.css("grids-core.css")">
+        <link rel="stylesheet" href="@assets.css("buttons.css")">
+        <link rel="stylesheet" href="@assets.css("forms.css")">
     </head>
     <body>
         <!--[if lt IE 8]>

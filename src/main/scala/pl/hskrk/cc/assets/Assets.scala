@@ -10,9 +10,9 @@ class MissingAssetException(key: String, mapping: Map[String, String]) extends E
   override def getMessage: String = s"There is not key=$key in mapping. Mapping is " + mapping.mkString("{\n", ",\n","}\n")
 }
 
-object Assets {
+class Assets(path: String) {
 
-  val assetsPath: String = "/home/bambucha/projects/hskrk-cc/src/main/assets" // FIXME from config file
+  val assetsPath: String = path
 
   val routes = {
     pathPrefix("assets") {

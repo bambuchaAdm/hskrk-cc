@@ -10,11 +10,12 @@ import akka.http.scaladsl.model.HttpMethods._
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.{MalformedFormFieldRejection, RejectionHandler}
 import akka.stream.ActorMaterializer
+import pl.hskrk.cc.assets.Assets
 
 import scala.concurrent.{Future, Promise}
 import scala.io.StdIn
 
-class Server(implicit val system: ActorSystem) extends TwirlSupport  { // Remove support later
+class Server(implicit val system: ActorSystem) {
 
   implicit val materializer = ActorMaterializer()
 
@@ -43,5 +44,13 @@ class Server(implicit val system: ActorSystem) extends TwirlSupport  { // Remove
     val future = http.bindAndHandle(routes.route, "localhost", port)
     counter.await()
     future.flatMap(_.unbind()).onComplete( _ => system.terminate())
+  }
+}
+
+object Server {
+  def main(args: Array[String]) = {
+    implicit val system = ActorSystem("hscc")
+    val server = new Server()
+    server.handleSync()
   }
 }
