@@ -1,13 +1,11 @@
 package pl.hskrk.cc.assets
 
 import java.io.IOException
-import java.nio.file.attribute.BasicFileAttributes
 import java.nio.file._
+import java.nio.file.attribute.BasicFileAttributes
 
 import akka.http.scaladsl.testkit.ScalatestRouteTest
-import com.sun.javafx.sg.prism.NGCanvas
-import com.typesafe.config.ConfigFactory
-import org.scalatest.{BeforeAndAfter, BeforeAndAfterAll, FlatSpec, Matchers}
+import org.scalatest.{BeforeAndAfterAll, FlatSpec, Matchers}
 
 /**
   * Created by bambucha on 19.09.16.
