@@ -11,7 +11,7 @@ import pl.hskrk.cc.users.UserManager
 
 import scala.concurrent.duration._
 
-class Issues(val system: ActorSystem, implicit val assets: Assets) extends TwirlSupport {
+class IssuesModule(val system: ActorSystem, implicit val assets: Assets) extends TwirlSupport {
 
   implicit val dispatcher = system.dispatcher
 

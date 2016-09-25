@@ -26,3 +26,4 @@ TwirlKeys.templateImports ++= Seq(
 )
 
 mainClass in assembly := Option("pl.hskrk.cc.Server")
+
