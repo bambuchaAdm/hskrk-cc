@@ -20,22 +20,26 @@ class AuthenticationDirectivesTest extends FlatSpec with Matchers with Scalatest
 
   val users = Map("1" -> user)
 
-  val authenticator: Authenticator[ExampleUser] = { context: RequestContext =>
-    context.request.uri.queryString().flatMap {
-      case "user=1" =>
-        Some(user)
-      case _ =>
-        None
+  val authenticator: GeneralAuthenticator[ExampleUser] = new GeneralAuthenticator[ExampleUser] {
+    override def authenticate(context: RequestContext) = {
+      context.request.uri.queryString().flatMap {
+        case "user=1" =>
+          Some(user)
+        case _ =>
+          None
+      }
     }
   }
 
-  val asyncAuthenticator: AsyncAuthenticator[ExampleUser] = { context: RequestContext =>
-    Future.successful(context.request.uri.queryString().flatMap {
-      case "user=1" =>
-        Some(user)
-      case _ =>
-        None
-    })
+  val asyncAuthenticator: AsyncGeneralAuthenticator[ExampleUser] =  new AsyncGeneralAuthenticator[ExampleUser] {
+    override def authenticate(context: RequestContext) = {
+      Future.successful(context.request.uri.queryString().flatMap {
+        case "user=1" =>
+          Some(user)
+        case _ =>
+          None
+      })
+    }
   }
 
   val syncSUT = {
@@ -43,13 +47,13 @@ class AuthenticationDirectivesTest extends FlatSpec with Matchers with Scalatest
       complete("OK")
     } ~
     path("secure") {
-      authenticate(authenticator) { user =>
+      authenticateUsing(authenticator) { user =>
         complete(user.secret)
       }
     }
   }
 
-  behavior of("Synchornius authenticator")
+  behavior of "Synchornius authenticator"
 
   it should "allow access to resources outsite" in {
     Get("/unsecure") ~> syncSUT ~> check {
@@ -80,13 +84,13 @@ class AuthenticationDirectivesTest extends FlatSpec with Matchers with Scalatest
       complete("OK")
     } ~
     path("secure") {
-      asyncAuthenticate(asyncAuthenticator){ user =>
+      authenticateUsing(asyncAuthenticator){ user =>
         complete(user.secret)
       }
     }
   }
 
-  behavior of("Asynchornius authenticator")
+  behavior of "Asynchornius authenticator"
 
   it should "allow access to resources outsite with future interface " in {
     Get("/unsecure") ~> asyncSUT ~> check {
