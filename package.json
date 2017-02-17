@@ -4,6 +4,7 @@
   "description": "Hackerspace Krakow Command Center",
   "main": "src/main/js/index.js",
   "dependencies": {
+    "purecss": "^0.6.2",
     "webpack": "^2.2.1"
   },
   "devDependencies": {
@@ -11,7 +12,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "webpack": "webpack"
+    "webpack": "webpack --config project/webpack.config.js"
   },
   "repository": {
     "type": "git",

@@ -16,7 +16,6 @@ libraryDependencies ++= Seq(
 
 enablePlugins(SbtTwirl)
 
-
 sourceDirectories in (Compile, TwirlKeys.compileTemplates) += sourceDirectory.value / "main" / "views"
 
 target in (Compile, TwirlKeys.compileTemplates) := target.value / "scala-2.11" / "src_managed" / "main"
