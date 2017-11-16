@@ -4,14 +4,22 @@
   "description": "Hackerspace Krakow Command Center",
   "main": "src/main/js/index.js",
   "dependencies": {
-    "purecss": "^0.6.2",
+    "react": "^15.4.2",
+    "react-css-modules": "^4.1.0",
     "webpack": "^2.2.1"
   },
   "devDependencies": {
+    "css-loader": "^0.26.1",
+    "extract-text-webpack-plugin": "^2.0.0-rc.3",
+    "pure-css": "^1.0.4",
+    "purecss": "^0.6.2",
+    "style-loader": "^0.13.1",
     "webpack": "^2.2.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack --config project/webpack.config.js --watch",
+    "build": "npm run webpack",
     "webpack": "webpack --config project/webpack.config.js"
   },
   "repository": {

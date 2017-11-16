@@ -12,8 +12,7 @@ import akka.http.scaladsl.server.{MalformedFormFieldRejection, RejectionHandler}
 import akka.stream.ActorMaterializer
 import pl.hskrk.cc.assets.Assets
 
-import scala.concurrent.{Future, Promise}
-import scala.io.StdIn
+import scala.concurrent.Future
 
 class Server(implicit val system: ActorSystem) {
 
@@ -25,32 +24,37 @@ class Server(implicit val system: ActorSystem) {
 
   val http = Http(system)
 
-  val routes = new HskrkCommandCenter(system)
-
-  def port: Int = 12000 // FIXME move to configuration file (typesafe-config)
+  val commandCenter = new HskrkCommandCenter(system)
 
   implicit val rejectionHandler = {
-
     RejectionHandler.newBuilder()
       .handleNotFound({ context =>
         context.complete(HttpResponse(StatusCodes.NotFound, entity = HttpEntity(ContentTypes.`text/html(UTF-8)`,html.page404().toString)))
       }).result()
   }
 
-  val counter = new CountDownLatch(1)
+  def bind() : Future[Http.ServerBinding] = {
+    logger.info("Starting server at port={}", commandCenter.httpPort)
+    http.bindAndHandle(commandCenter.route, "localhost", commandCenter.httpPort)
+  }
 
-  def handleSync() : Unit = {
-    logger.info("Starting server at port={}", port)
-    val future = http.bindAndHandle(routes.route, "localhost", port)
-    counter.await()
-    future.flatMap(_.unbind()).onComplete( _ => system.terminate())
+  def handle(): Unit ={
+    commandCenter.mode.block
   }
 }
 
-object Server {
-  def main(args: Array[String]) = {
-    implicit val system = ActorSystem("hscc")
-    val server = new Server()
-    server.handleSync()
+object Server extends App {
+  implicit val system = ActorSystem("hscc")
+  implicit val dispatcher = system.dispatcher
+  val server = new Server()
+  try {
+    val future = server.bind()
+    server.handle()
+    future.flatMap(_.unbind()).onComplete( _ => system.terminate())
+  } catch {
+    case e: Exception =>
+      System.out.println("Exception")
+      e.printStackTrace()
+      system.terminate()
   }
 }

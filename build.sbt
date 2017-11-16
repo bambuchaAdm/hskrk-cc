@@ -26,3 +26,19 @@ TwirlKeys.templateImports ++= Seq(
 
 mainClass in assembly := Option("pl.hskrk.cc.Server")
 
+val mode = SettingKey[String]("mode", "Define mode of working. Production, test or development")
+
+mode := "dev"
+
+val webpack = TaskKey[Seq[sbt.File]]("webpack", "Compile web scripts to all stuff")
+
+webpack in Compile := {
+  "npm run webpack".!
+  IO.listFiles(target.value / "public")
+}
+
+resourceGenerators in Compile += (webpack in Compile).taskValue
+
+fork in run := true
+
+connectInput in run := true

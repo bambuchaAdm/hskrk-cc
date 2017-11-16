@@ -1,9 +1,11 @@
+import "pure-css";
+
 function component(){
     'use strict';
 
-    var element= document.createElement('div');
+    const element= document.createElement('div');
 
-    element.innerHTML = "Hellow webpack";
+    element.innerHTML = "Hi webpack";
 
     return element;
 }

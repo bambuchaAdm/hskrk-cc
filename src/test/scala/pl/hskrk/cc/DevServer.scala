@@ -11,11 +11,8 @@ object DevServer extends App {
   implicit val system = ActorSystem("test-app")
   try {
     val server = new Server()
-    server.handleSync()
-    if(!args.contains("--test")) {
-      StdIn.readLine()
-      server.counter.countDown()
-    }
+    server.bind()
+    server.commandCenter.mode.block
   } catch {
     case e if NonFatal(e) =>
       Await.ready(system.terminate(), 1.minute)

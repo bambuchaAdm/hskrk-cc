@@ -21,6 +21,7 @@ class Assets(path: String) {
   }
 
   val cssCache: Map[String, String] = {
+//      Map.empty[String, String]
     import scala.collection.JavaConverters._
     val file = new File(assetsPath)
     val pathList = Files.walk(file.toPath).collect(Collectors.toList[Path]).asScala
